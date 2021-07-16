@@ -1,0 +1,194 @@
+.mini {
+    text-align: center;
+    overflow: hidden;
+    display: inline-block;
+    page-break-inside: avoid;
+}
+
+.mini .base {
+    overflow:hidden;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px dotted grey;
+}
+
+.mini .base span {
+    vertical-align: middle;
+}
+
+.mini .art {
+    height: 1.18in;
+    width: 1in;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px dotted grey;
+    border-bottom: 1px dotted grey;
+    position: relative;
+    overflow: hidden;
+}
+
+.mini .foot {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.mini .foot.front {
+    border-top: 1px dotted grey;
+    border-bottom: 1px dotted grey;
+}
+.mini .foot.back {
+    border-top: 1px solid black;
+    border-bottom: 1px dotted grey;
+}
+
+.pixelart {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-pixelated;
+    image-rendering: pixelated;
+}
+
+.mini .art {
+    display: flex;
+    justify-content: center;
+}
+
+.mini .art img {
+    margin-left: auto;
+    margin-right: auto;    
+}
+
+
+.mini .art.back img {
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+
+
+
+
+/* Tiny Size*/
+.size-tiny .base {
+    height: 0.5in;
+    width: 0.5in;
+}
+
+.size-tiny .base span {
+    line-height: 0.5in;
+}
+
+.size-tiny .art {
+    height: 0.6in;
+    width: 0.5in;
+}
+
+.size-tiny .foot {
+    width: 0.5in;
+    height: calc(0.5in / 2);
+}
+
+/* Small Size */
+.size-small .base {
+    height: 1in;
+    width: 1in;
+}
+
+.size-small .base span {
+    line-height: 1in;
+}
+
+.size-small .art {
+    height: 0.8in;
+    width: 1in;
+}
+
+.size-small .foot {
+    width: 1in;
+    height: calc(1in / 2);
+}
+
+/* Medium Size */
+.size-medium .base {
+    height: 1in;
+    width: 1in;
+}
+
+.size-medium .base span {
+    line-height: 1in;
+}
+
+.size-medium .art {
+    height: 1.10in;
+    width: 1in;
+}
+
+.size-medium .foot {
+    width: 1in;
+    height: calc(1in / 2);
+}
+
+/* Large Size */
+.size-large .base {
+    height: 2in;
+    width: 2in;
+}
+
+.size-large .base span {
+    line-height: 2in;
+}
+
+.size-large .art {
+    height: 2.4in;
+    width: 2in;
+}
+
+.size-large .foot {
+    width: 2in;
+    height: calc(2in / 2);
+}
+
+/* Huge Size */
+.size-huge .base {
+    height: 3in;
+    width: 3in;
+}
+
+.size-huge .base span {
+    line-height: 3in;
+}
+
+.size-huge .art {
+    height: 4.8in;
+    width: 3in;
+}
+
+.size-huge .foot {
+    width: 3in;
+    height: calc(3in / 2);
+}
+
+/* Gargantuan Size */
+.size-gargantuan .base {
+    height: 4in;
+    width: 4in;
+}
+
+.size-gargantuan .base span {
+    line-height: 4in;
+}
+
+.size-gargantuan .art {
+    height: 9.6in;
+    width: 4in;
+}
+
+.size-gargantuan .foot {
+    width: 4in;
+    height: calc(4in / 2);
+}

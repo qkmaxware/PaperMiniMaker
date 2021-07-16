@@ -1,0 +1,27 @@
+body {
+    background-color: #011638;
+    color: white;
+    font-family: Helvetica, sans-serif;
+}
+
+.bg {
+    background-color: #011638;
+    color: white;
+    font-family: Helvetica, sans-serif;
+}
+
+header {
+    background-color: #2E294E;
+}
+
+footer {
+    background-color: #2E294E;
+}
+
+.tab-active {
+    background-color: #2D232E !important;
+}
+
+.tab-inactive {
+    background-color: #353335 !important;
+}
