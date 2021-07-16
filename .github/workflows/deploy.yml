@@ -1,0 +1,44 @@
+name: Deploy
+on:
+  release: 
+    types:
+    - released
+    branches: 
+    - "root"
+jobs:
+  deploy:
+    name: Deploy Github Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@master
+        with:
+          submodules: "recursive"
+          fetch-depth: 0
+
+      - name: Setup Dotnet
+        uses: actions/setup-dotnet@v1 
+        with:
+          dotnet-version: '5.0.x' # SDK Version to use
+
+      - name: Change base-tag
+        run: sed -i 's/<base href="\/" \/>/<base href="\/PaperMiniMaker\/" \/>/g' wwwroot/index.html
+
+      - name: Build Site
+        env: 
+          GITHUB_USERNAME: qkmaxware
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet publish PaperMiniMaker.csproj -c Release -o .release
+
+      - name: Add .nojekyll file
+        run: touch .release/wwwroot/.nojekyll
+
+      - name: Custom 404
+        run: cp .release/wwwroot/index.html .release/wwwroot/404.html
+
+      - name: Commit to Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.3
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: .release/wwwroot

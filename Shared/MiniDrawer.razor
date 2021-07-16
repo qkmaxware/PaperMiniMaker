@@ -1,0 +1,21 @@
+<div class="mini @Mini.Size.CssClass() w3-margin">
+    <div class="foot back">
+
+    </div>
+    <div class="art back">
+        <img class="pixelart" src="@Mini.GetReverseArt().Url"> 
+    </div>
+    <div class="art front">
+        <img class="pixelart" src="@Mini.FrontArt.Url"> 
+    </div>
+    <div class="foot front">
+
+    </div>
+    <div class="base">
+        <span>@Mini.Name</span>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Mini Mini {get; set;}
+}

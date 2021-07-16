@@ -1,0 +1,15 @@
+@inject IJSRuntime js;
+
+<input @ref=files type="file" accept="@Accept" class="w3-input" @onchange=readFileString>
+
+@code {   
+    [Parameter] public string Accept {get; set;} = string.Empty;
+    private ElementReference files;
+    [Parameter] public Action<string> OnFileLoad {get; set;}
+    [Parameter] public bool AsDataUrl {get; set;} = false;
+
+    private async Task readFileString() {
+        string bytes = await js.InvokeAsync<string>(AsDataUrl ? "BlazorHandleFileSelectDataUrl" : "BlazorHandleFileSelect", files);
+        OnFileLoad?.Invoke(bytes);
+    }
+}

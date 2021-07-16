@@ -1,0 +1,87 @@
+<div class="w3-modal @showModalCss">
+    <div class="w3-modal-content w3-round-xlarge">
+        <header class="w3-container w3-center w3-xlarge">
+            Edit Mini
+        </header>
+        @if (mini != null) {
+        <div class="w3-container bg">
+            <label>Name</label>
+            <input class="w3-input w3-margin-bottom" @bind=@mini.Name style="background-color:inherit; color:inherit;">
+            <label>Replicas</label>
+            <input type="number" class="w3-input w3-margin-bottom" @bind=@mini.Replicas style="background-color:inherit; color:inherit;">
+            <label>Size</label>
+            <select @bind=@mini.Size class="w3-input w3-margin-bottom" style="background-color:inherit; color:inherit;">
+                @foreach (MiniSize size in Enum.GetValues(typeof(MiniSize))){
+                    <option value="@size">@size.Description()</option>
+                }
+            </select>
+            <div class="w3-margin-top w3-margin-bottom">
+                <div class="w3-row">
+                    <div class="w3-button @(frontArtTab ? "tab-active" : "tab-inactive")" @onclick=@(() => frontArtTab = true)>Front Art</div>
+                    <div class="w3-button @(!frontArtTab? "tab-active" : "tab-inactive")" @onclick=@(() => frontArtTab = false)>Back Art</div>
+                </div>
+                <div class="w3-padding" style="background-color: #2D232E;">
+                    @if (frontArtTab) {
+                    <label>URL</label>
+                    <input class="w3-input" @bind=@mini.FrontArt.Url style="background-color:inherit; color:inherit;">
+                    <div class="w3-center w3-padding">
+                        OR
+                    </div>
+                    <FilePicker AsDataUrl=true OnFileLoad=@((url) => { mini.FrontArt.Url = url; StateHasChanged(); })></FilePicker>
+                    } else {
+                    <div class="w3-margin-bottom">
+                        <input type="checkbox" class="w3-check" checked=@(mini.ReverseArt != null) @onchange=toggleReverseArt/> 
+                        <label>Use different art from front </label>
+                    </div>
+                    if (mini.ReverseArt != null) {
+                        <label>URL</label>
+                        <input class="w3-input" @bind=@mini.ReverseArt.Url style="background-color:inherit; color:inherit;">
+                        <div class="w3-center w3-padding">
+                            OR
+                        </div>
+                        <FilePicker AsDataUrl=true OnFileLoad=@((url) => { mini.ReverseArt.Url = url; StateHasChanged(); })></FilePicker>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <footer class="w3-container w3-center">
+            <button class="w3-button" @onclick=save>Done</button>
+        </footer>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public Action OnChange {get; set;}
+    private Mini mini;
+
+    private bool isOpen = false;
+    private string showModalCss => isOpen ? "w3-show" : "w3-hide";
+
+    private bool frontArtTab = true;
+
+    public void Edit(Mini mini) {
+        this.mini = mini;
+        this.frontArtTab = true;
+        this.isOpen = true;
+        StateHasChanged();
+    }
+
+    public void save() {
+        OnChange?.Invoke();
+        this.isOpen = false;
+    }
+
+    private void toggleReverseArt(ChangeEventArgs e) {
+        if (e.Value is bool && (bool)(e.Value) == true) {
+            if (mini.ReverseArt == null) {
+                mini.ReverseArt = new MiniArt {
+                    Url = string.Empty,
+                };
+            }
+        } else {
+            mini.ReverseArt = null;
+        }
+    }
+}

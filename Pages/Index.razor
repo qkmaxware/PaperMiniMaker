@@ -1,0 +1,82 @@
+﻿@page "/"
+
+<div class="w3-center w3-padding no-print">
+    print this page to get your minis.
+</div>
+
+<div class="w3-row no-print">
+    @foreach (var mini in minis) {
+        <div class="w3-col l2 m3 s12 w3-padding">
+            <div class="w3-border w3-round-xlarge">    
+                <div class="w3-center w3-padding w3-large">
+                    @mini.Name @if(mini.Replicas > 1) { <small> (x@(mini.Replicas))</small> }
+                </div>
+                <div class="w3-center" style="height: 240px;">
+                    <img src="@mini.FrontArt.Url" class="pixelart"/>
+                </div>
+                <div class="w3-right-align">
+                    <button class="w3-button" @onclick=@(() => editMini(mini))>Edit</button>
+                    <button class="w3-button w3-text-red" @onclick=@(() => deleteMini(mini))>Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="w3-col l2 m3 s12 w3-padding">
+        <div class="w3-button w3-round-xlarge w3-display-container" @onclick=createMini style="border: 1px dashed white; width:100%; height: 320.8px">    
+            <div class="w3-display-middle w3-center w3-xlarge">
+                New<br>
+                +
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w3-row print">
+    @foreach (var mini in minis.OrderBy((m) => m.Size)) {
+        for (var i = 0; i < mini.Replicas; i++) {
+            <MiniDrawer Mini=mini></MiniDrawer>
+        }
+    }
+    <div class="w3-center w3-padding">
+        <b>Instructions</b>
+        <p>
+            Print out miniatures the cut out each one along the solid black lines. Fold each miniature along the dotted lines so that the artwork is able to stand vertically with the stand beneath them. The mini's name should be on the bottom of the stand.
+        </p>
+    </div>
+</div>
+
+<div class="w3-center w3-padding no-print" style="position: fixed; bottom: 0; left: 0; right: 0;">
+    Confused? Read the complete instructions <a href="help" target="_blank">here</a>.
+</div>
+
+<MiniEditor @ref=editor OnChange=StateHasChanged></MiniEditor>
+<DeleteConfirmation @ref=delete></DeleteConfirmation>
+
+@code {
+
+    private MiniEditor editor;
+    private DeleteConfirmation delete;
+
+    public List<Mini> minis = new List<Mini> {};
+
+    private void createMini() {
+        var mini = new Mini {
+            Name = "New Mini " + (minis.Count + 1),
+            Size = MiniSize.Medium,
+            FrontArt = new MiniArt {
+                Url = string.Empty
+            },
+            Replicas = 1,
+        };
+        this.minis.Add(mini);
+        editor?.Edit(mini);
+    }
+    
+    private void editMini(Mini mini) {
+        editor?.Edit(mini);
+    }
+
+    private void deleteMini(Mini mini) {
+        this.delete.AskForConfirmation(() => { minis.Remove(mini); StateHasChanged(); });
+    }
+
+}
