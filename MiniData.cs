@@ -19,8 +19,8 @@ public static class MiniSizeMethods {
             MiniSize.Small => "Small: 25mm x 20mm (1\" x 0.8\")",
             MiniSize.Medium => "Medium: 25mm x 28mm  (1\" x 1.1\")",
             MiniSize.Large => "Large: 50mm x 60mm (2\" x 2.4\")",
-            MiniSize.Huge => "Huge: 76mm x 122mm (3\" x 4.8\")",
-            MiniSize.Gargantuan => "Gargantuan: 102mm x 244mm (4\" x 9.6\")",
+            MiniSize.Huge => "Huge: 76mm x 96mm (3\" x 3.8\")",
+            MiniSize.Gargantuan => "Gargantuan: 102mm x 116mm (4\" x 4.6\")",
             _ => size.ToString()
         };
     }
