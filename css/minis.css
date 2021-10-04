@@ -6,6 +6,7 @@
     page-break-inside: avoid;
     color: black;
     border-collapse: collapse;
+    white-space: nowrap;
 }
 
 .mini .base {
@@ -14,6 +15,8 @@
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     border-top: 1px dotted grey;
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 .mini .base span {
@@ -22,6 +25,8 @@
 
 .mini .foot span {
     vertical-align: middle;
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 .mini .art {
@@ -33,11 +38,15 @@
     border-bottom: 1px dotted grey;
     position: relative;
     overflow: hidden;
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 .mini .foot {
     border-left: 1px solid black;
     border-right: 1px solid black;
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 .mini .foot.front {
     border-top: 1px dotted grey;
