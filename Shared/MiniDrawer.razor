@@ -1,20 +1,22 @@
 @if (Mini.Size != MiniSize.Huge && Mini.Size != MiniSize.Gargantuan) {
 <div class="mini @Mini.Size.CssClass() w3-margin">
-    <div class="foot back">
-
-    </div>
+    @if (WithBase) {
+    <div class="foot back"></div>
+    }
     <div class="art back">
         <img class="yflip pixelart" src="@Mini.GetReverseArt().Url"> 
     </div>
     <div class="art front">
         <img class="pixelart" src="@Mini.FrontArt.Url"> 
     </div>
+    @if (WithBase) {
     <div class="foot front">
         <span>&#9660;</span>
     </div>
     <div class="base">
         <span>@Mini.Name</span>
     </div>
+    }
 </div>
 } else {
 <div class="mini @Mini.Size.CssClass() w3-margin">
@@ -23,20 +25,24 @@
         <div class="art back" style="border-top: 1px solid black !important; border-right: 1px dotted grey !important">
             <img class="xflip pixelart" src="@Mini.GetReverseArt().Url"> 
         </div>
+        @if (WithBase) {
         <div class="foot back"  style="border-botom: 1px solid black !important; border-top: 1px dotted grey !important">
 
         </div>
+        }
     </div>
     <div style="display: inline-block">
         <div class="art front"  style="border-top: 1px solid black !important; border-left: 1px dotted grey !important">
             <img class="pixelart" src="@Mini.FrontArt.Url"> 
         </div>
+        @if (WithBase) {
         <div class="foot front">
             <span>&#9660;</span>
         </div>
         <div class="base">
             <span>@Mini.Name</span>
         </div>
+        }
     </div>
     </div>
 </div>
@@ -44,4 +50,5 @@
 
 @code {
     [Parameter] public Mini Mini {get; set;}
+    [Parameter] public bool WithBase {get; set;} = true;
 }

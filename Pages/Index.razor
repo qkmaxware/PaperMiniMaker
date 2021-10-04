@@ -1,7 +1,7 @@
 ﻿@page "/"
 
 <div class="w3-center w3-padding no-print">
-    print this page to get your minis.
+    <a href="#" onclick="window.print()">print</a> this page to get your minis <select @bind="baseSelection"><option value="Y">with a base</option><option value="N">without base</option></select>.
 </div>
 
 <div class="w3-row no-print">
@@ -33,13 +33,13 @@
 <div class="w3-row print">
     @foreach (var mini in minis.OrderBy((m) => m.Size)) {
         for (var i = 0; i < mini.Replicas; i++) {
-            <MiniDrawer Mini=mini></MiniDrawer>
+            <MiniDrawer Mini=mini WithBase=@printWithBase></MiniDrawer>
         }
     }
     <div class="w3-center w3-padding">
         <b>Instructions</b>
         <p>
-            Print out miniatures the cut out each one along the solid black lines. Fold each miniature along the dotted lines so that the artwork is able to stand vertically with the stand beneath them. The mini's name should be on the bottom of the stand.
+            Print out miniatures the cut out each one along the solid black lines. Fold each miniature along the dotted lines so that the artwork is able to stand vertically on its base.
         </p>
     </div>
 </div>
@@ -55,6 +55,9 @@
 
     private MiniEditor editor;
     private DeleteConfirmation delete;
+
+    private string baseSelection = "Y";
+    private bool printWithBase => baseSelection == "Y";
 
     public List<Mini> minis = new List<Mini> {};
 
