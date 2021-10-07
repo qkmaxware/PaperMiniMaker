@@ -57,6 +57,38 @@
     border-bottom: 1px dotted grey;
 }
 
+.fold-bottom {
+    border-bottom: 1px dotted grey;
+}
+
+.fold-top {
+    border-top: 1px dotted grey;
+}
+
+.fold-left {
+    border-left: 1px dotted grey;
+}
+
+.fold-right {
+    border-right: 1px dotted grey;
+}
+
+.cut-bottom {
+    border-bottom: 1px solid black;
+}
+
+.cut-top {
+    border-top: 1px solid black;
+}
+
+.cut-left {
+    border-left: 1px solid black;
+}
+
+.cut-right {
+    border-right: 1px solid black;
+}
+
 .pixelart {
     height: 100%;
     width: 100%;
@@ -79,14 +111,19 @@
     margin-right: auto;    
 }
 
-.mini .art.back .yflip {
+.yflip {
     -webkit-transform: scaleY(-1);
     transform: scaleY(-1);
 }
 
-.mini .art.back .xflip {
+.xflip {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+
+.xyflip {
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
 }
 
 
