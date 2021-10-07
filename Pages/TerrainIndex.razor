@@ -1,0 +1,78 @@
+@page "/terrain"
+
+<div class="w3-center w3-padding no-print">
+    <a href="#" onclick="window.print()">print</a> this page to get your terrain.
+</div>
+
+<div class="w3-row no-print">
+    @foreach (var mini in minis) {
+        <div class="w3-col l2 m3 s12 w3-padding">
+            <div class="w3-border w3-round-xlarge">    
+                <div class="w3-center w3-padding w3-large">
+                    @mini.Name @if(mini.Replicas > 1) { <small> (x@(mini.Replicas))</small> }
+                </div>
+                <div class="w3-center" style="height: 240px;">
+                    <img src="@mini.Art.Url" class="pixelart"/>
+                </div>
+                <div class="w3-right-align">
+                    <button class="w3-button" @onclick=@(() => editMini(mini))>Edit</button>
+                    <button class="w3-button w3-text-red" @onclick=@(() => deleteMini(mini))>Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="w3-col l2 m3 s12 w3-padding">
+        <div class="w3-button w3-round-xlarge w3-display-container" @onclick=createMini style="border: 1px dashed white; width:100%; height: 320.8px">    
+            <div class="w3-display-middle w3-center w3-xlarge">
+                New<br>
+                +
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w3-row print">
+    @foreach (var mini in minis) {
+        for (var i = 0; i < mini.Replicas; i++) {
+            <TerrainDrawer Terrain=mini></TerrainDrawer>
+        }
+    }
+    <Instructions></Instructions>
+</div>
+
+<div class="w3-center w3-padding no-print" style="position: fixed; bottom: 0; left: 0; right: 0;">
+    Confused? Read the complete instructions <a href="terrain/help" target="_blank">here</a>.
+</div>
+
+
+<TerrainEditor @ref=editor OnChange=StateHasChanged></TerrainEditor>
+<DeleteConfirmation @ref=delete></DeleteConfirmation>
+
+@code {
+    public static List<Terrain> minis = new List<Terrain> {};
+
+    private TerrainEditor editor;
+    private DeleteConfirmation delete;
+    private void createMini() {
+         var mini = new Terrain {
+            Name = "New Wall " + (minis.Count + 1),
+            Kind = TerrainKind.Wall,
+            Art = new TerrainArt {
+                Url = string.Empty
+            },
+            Length = 3,
+            Height = 0.5f,
+            Replicas = 1,
+        };
+        minis.Add(mini);
+        editor?.Edit(mini);
+    }
+
+    private void editMini(Terrain mini) {
+        editor?.Edit(mini);
+    }
+
+    private void deleteMini(Terrain mini) {
+        this.delete.AskForConfirmation(() => { minis.Remove(mini); StateHasChanged(); });
+    }
+}

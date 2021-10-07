@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/mini"
 
 <div class="w3-center w3-padding no-print">
     <a href="#" onclick="window.print()">print</a> this page to get your minis <select @bind="baseSelection"><option value="Y">with a base</option><option value="N">without base</option></select>.
@@ -36,16 +37,11 @@
             <MiniDrawer Mini=mini WithBase=@printWithBase></MiniDrawer>
         }
     }
-    <div class="w3-center w3-padding">
-        <b>Instructions</b>
-        <p>
-            Print out miniatures the cut out each one along the solid black lines. Fold each miniature along the dotted lines so that the artwork is able to stand vertically on its base.
-        </p>
-    </div>
+    <Instructions></Instructions>
 </div>
 
 <div class="w3-center w3-padding no-print" style="position: fixed; bottom: 0; left: 0; right: 0;">
-    Confused? Read the complete instructions <a href="help" target="_blank">here</a>.
+    Confused? Read the complete instructions <a href="mini/help" target="_blank">here</a>.
 </div>
 
 <MiniEditor @ref=editor OnChange=StateHasChanged></MiniEditor>
@@ -59,7 +55,7 @@
     private string baseSelection = "Y";
     private bool printWithBase => baseSelection == "Y";
 
-    public List<Mini> minis = new List<Mini> {};
+    public static List<Mini> minis = new List<Mini> {};
 
     private void createMini() {
         var mini = new Mini {
@@ -70,7 +66,7 @@
             },
             Replicas = 1,
         };
-        this.minis.Add(mini);
+        minis.Add(mini);
         editor?.Edit(mini);
     }
     

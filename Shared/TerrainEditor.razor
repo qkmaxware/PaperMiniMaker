@@ -1,0 +1,79 @@
+<div class="w3-modal @showModalCss">
+    <div class="w3-modal-content w3-round-xlarge">
+        <header class="w3-container w3-center w3-xlarge">
+            Edit Terrain Part
+        </header>
+        @if (mini != null) {
+        <div class="w3-container bg">
+            <label>Name</label>
+            <input class="w3-input w3-margin-bottom" @bind=@mini.Name style="background-color:inherit; color:inherit;">
+            <label>Terrain Type</label>
+            <div class="w3-row-padding" style="background-color:inherit; color:inherit;">
+                <div class="w3-col s6" style="background-color:inherit; color:inherit;">
+                    <select @bind=@mini.Kind class="w3-input w3-margin-bottom" style="background-color:inherit; color:inherit;">
+                        @foreach (TerrainKind kind in Enum.GetValues(typeof(TerrainKind))){
+                            <option value="@kind">@kind</option>
+                        }
+                    </select>
+                </div>
+                <div class="w3-col s6">
+                    @mini.Kind.Description()
+                </div>
+            </div>
+            <label>Size (tiles)</label>
+            <div class="w3-row">
+                <div class="w3-col s3 w3-right-align" style="padding-top: 10px;">
+                    <label>Length</label>
+                </div>
+                <div class="w3-col s3">
+                    <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Length style="background-color:inherit; color:inherit;">
+                </div>
+                <div class="w3-col s3 w3-right-align" style="padding-top: 10px;">
+                    <label>Height</label>
+                </div>
+                <div class="w3-col s3">
+                    <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Height style="background-color:inherit; color:inherit;">
+                </div>
+            </div>
+            <label>Replicas</label>
+            <input type="number" class="w3-input w3-margin-bottom" @bind=@mini.Replicas style="background-color:inherit; color:inherit;">
+            
+            <div class="w3-margin-top w3-margin-bottom">
+                <div class="w3-row">
+                    <div class="w3-button tab-active">Art</div>
+                </div>
+                <div class="w3-padding" style="background-color: #2D232E;">
+                    <label>URL</label>
+                    <input class="w3-input" @bind=@mini.Art.Url style="background-color:inherit; color:inherit;">
+                    <div class="w3-center w3-padding">
+                        OR
+                    </div>
+                    <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.Art.Url = url; StateHasChanged(); })></FilePicker>
+                </div>
+            </div>
+        </div>
+        <footer class="w3-container w3-center">
+            <button class="w3-button" @onclick=save>Done</button>
+        </footer>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public Action OnChange {get; set;}
+    private Terrain mini;
+
+    private bool isOpen = false;
+    private string showModalCss => isOpen ? "w3-show" : "w3-hide";
+
+    public void Edit(Terrain mini) {
+        this.mini = mini;
+        this.isOpen = true;
+        StateHasChanged();
+    }
+
+    public void save() {
+        OnChange?.Invoke();
+        this.isOpen = false;
+    }
+}
