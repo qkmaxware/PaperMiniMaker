@@ -1,19 +1,26 @@
+<div class="solid" style="padding: 2px;">
 @if (Terrain != null) {
 if (Terrain.Kind == TerrainKind.Wall) {
 <div class="solid" style="width: @(Terrain.Length)in;">
     <div class="cut-top cut-left cut-right" style="width: 100%; height: 0.5in;"></div>
     <div class="cut-left cut-right fold-top fold-bottom" style="height: @(Terrain.Height)in;">
-        <div class="fill print-bg bg-vfill-hrepeat yflip" style="background-image: url('@Terrain.Art.Url');"></div>
+        <div class="fill yflip">
+            <img class="fill pixelart" src="@Terrain.Art.Url">
+        </div>
     </div>
     <div class="cut-left cut-right fold-top fold-bottom" style="height: @(Terrain.Height)in;">
-        <div class="fill print-bg bg-vfill-hrepeat" style="background-image: url('@Terrain.Art.Url');"></div>
+        <div class="fill">
+            <img class="fill pixelart" src="@Terrain.Art.Url">
+        </div>
     </div>
     <div class="cut-bottom cut-left cut-right" style="width: 100%; height: 0.5in;"></div>
 </div>
 } else if (Terrain.Kind == TerrainKind.Clip) {
 <div class="solid" style="width: @(Terrain.Length)in;">
     <div class="cut-left cut-right cut-top fold-bottom" style="height: @(Terrain.Height)in;">
-        <div class="fill print-bg bg-vfill-hrepeat" style="background-image: url('@Terrain.Art.Url');"></div>
+        <div class="fill">
+            <img class="fill pixelart" src="@Terrain.Art.Url">
+        </div>
     </div>
 
     <div class="fold-top cut-left cut-right print-bg w3-light-grey w3-center" style="height: @(Terrain.HalfHeight)in;">
@@ -38,7 +45,9 @@ if (Terrain.Kind == TerrainKind.Wall) {
     </div>
 
     <div class="cut-left cut-right fold-top cut-bottom" style="height: @(Terrain.Height)in;">
-        <div class="fill print-bg bg-vfill-hrepeat yflip" style="background-image: url('@Terrain.Art.Url');"></div>
+        <div class="fill yflip">
+            <img class="fill pixelart" src="@Terrain.Art.Url">
+        </div>
     </div>
 </div>
 } else if (Terrain.Kind == TerrainKind.Floor) {
@@ -49,24 +58,51 @@ if (Terrain.Kind == TerrainKind.Wall) {
 <div class="solid">
     <div style="display: flex;">
         <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Height)in;"></div>
-        <div class="solid fold-left fold-right cut-top fold-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;"></div>
+        <div class="solid fold-left fold-right cut-top fold-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
+            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            <div class="fill">
+                <img class="fill pixelart" src="@Terrain.Art.Url">
+            </div>
+            }
+        </div>
         <div class="solid cut-right cut-top fold-left cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Height)in;"></div>
     </div>
     <div style="display: flex;">
-        <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Length)in;"></div>
-        <div class="solid fold-left fold-right fold-top fold-bottom fill-image" style="width: @(Terrain.Length)in; height: @(Terrain.Length)in;">
-            <img src="@(Terrain.Art.Url)" class="pixelart">
+        <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Length)in;">
+            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            <div class="fill">
+                <img class="fill pixelart" src="@Terrain.Art.Url">
+            </div>
+            }
         </div>
-        <div class="solid cut-right cut-top fold-left cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Length)in;"></div>
+        <div class="solid fold-left fold-right fold-top fold-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Length)in;">
+            <div class="fill">
+                <img class="fill pixelart" src="@Terrain.Art.Url">
+            </div>
+        </div>
+        <div class="solid cut-right cut-top fold-left cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Length)in;">
+            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            <div class="fill">
+                <img class="fill pixelart" src="@Terrain.Art.Url">
+            </div>
+            }
+        </div>
     </div>
     <div style="display: flex;">
         <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Height)in;"></div>
-        <div class="solid fold-left fold-right fold-top cut-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;"></div>
+        <div class="solid fold-left fold-right fold-top cut-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
+            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            <div class="fill">
+                <img class="fill pixelart" src="@Terrain.Art.Url">
+            </div>
+            }
+        </div>
         <div class="solid cut-right cut-top fold-left cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Height)in;"></div>
     </div>
 </div>
 }
 }
+</div>
 
 @code {
     [Parameter] public Terrain Terrain {get; set;}

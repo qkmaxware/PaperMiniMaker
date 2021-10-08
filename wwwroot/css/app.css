@@ -53,6 +53,10 @@ footer {
     background-size: auto 100%;
     background-repeat: repeat-x;
 }
+.bg-vrepeat-hfill {
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+}
 
 .fit-image {
     display: flex;

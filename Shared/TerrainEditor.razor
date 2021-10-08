@@ -22,16 +22,16 @@
             </div>
             <label>Size (tiles)</label>
             <div class="w3-row">
-                <div class="w3-col s3 w3-right-align" style="padding-top: 10px;">
+                <div class="w3-col s2 w3-right-align" style="padding-top: 10px;">
                     <label>Length</label>
                 </div>
-                <div class="w3-col s3">
+                <div class="w3-col s4">
                     <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Length style="background-color:inherit; color:inherit;">
                 </div>
-                <div class="w3-col s3 w3-right-align" style="padding-top: 10px;">
+                <div class="w3-col s2 w3-right-align" style="padding-top: 10px;">
                     <label>Height</label>
                 </div>
-                <div class="w3-col s3">
+                <div class="w3-col s4">
                     <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Height style="background-color:inherit; color:inherit;">
                 </div>
             </div>
@@ -40,15 +40,31 @@
             
             <div class="w3-margin-top w3-margin-bottom">
                 <div class="w3-row">
-                    <div class="w3-button tab-active">Art</div>
+                    <div class="w3-button @(!secondArtTab ? "tab-active" : "tab-inactive")" @onclick=@(() => secondArtTab = false)>Primary Art</div>
+                    <div class="w3-button @(secondArtTab ? "tab-active" : "tab-inactive")" @onclick=@(() => secondArtTab = true)>Support Wall Art</div>
                 </div>
                 <div class="w3-padding" style="background-color: #2D232E;">
-                    <label>URL</label>
-                    <input class="w3-input" @bind=@mini.Art.Url style="background-color:inherit; color:inherit;">
-                    <div class="w3-center w3-padding">
-                        OR
-                    </div>
-                    <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.Art.Url = url; StateHasChanged(); })></FilePicker>
+                    @if (!secondArtTab) {
+                        <label>URL</label>
+                        <input class="w3-input" @bind=@mini.Art.Url style="background-color:inherit; color:inherit;">
+                        <div class="w3-center w3-padding">
+                            OR
+                        </div>
+                        <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.Art.Url = url; StateHasChanged(); })></FilePicker>
+                    } else {
+                        if (mini.Kind.UsesSupportWalls()) {
+                            <label>URL</label>
+                            <input class="w3-input" @bind=@mini.SupportArt.Url style="background-color:inherit; color:inherit;">
+                            <div class="w3-center w3-padding">
+                                OR
+                            </div>
+                            <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.SupportArt.Url = url; StateHasChanged(); })></FilePicker>
+                        } else {
+                            <p>
+                                This kind of terrain does not have support walls
+                            </p>
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -66,9 +82,24 @@
     private bool isOpen = false;
     private string showModalCss => isOpen ? "w3-show" : "w3-hide";
 
+    private bool _secondArtTab;
+    private bool secondArtTab {
+        get => _secondArtTab;
+        set {
+            if (value == false)
+                _secondArtTab = false;
+            else if (mini != null) {
+                if (mini.SupportArt == null)
+                    mini.SupportArt = new TerrainArt();
+                _secondArtTab = value;
+            }
+        }
+    }
+
     public void Edit(Terrain mini) {
         this.mini = mini;
         this.isOpen = true;
+        this.secondArtTab = false;
         StateHasChanged();
     }
 

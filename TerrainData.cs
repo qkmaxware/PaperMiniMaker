@@ -20,8 +20,15 @@ public static class TerrainKindMethods {
             TerrainKind.Wall => "Vertical walls supported by a flat base.",
             TerrainKind.Clip => "Decoration which can be slid over walls, good for doors or windows.",
             TerrainKind.Floor => "Flat image for laying on the ground, good for carpets or trap doors.",
-            TerrainKind.Platform => "Slightly raised box, good for applying ellivation to maps.",
+            TerrainKind.Platform => "Slightly raised box with no bottom, good for applying elevation to maps.",
             _ => string.Empty
+        };
+    }
+
+    public static bool UsesSupportWalls (this TerrainKind size) {
+        return size switch {
+            TerrainKind.Platform => true,
+            _ => false
         };
     }
 }
@@ -30,6 +37,7 @@ public class Terrain {
     public string Name {get; set;}
     public TerrainKind Kind {get; set;}
     public TerrainArt Art {get; set;}
+    public TerrainArt SupportArt {get; set;}
     public int Replicas {get; set;}
 
     public float Length {get; set;}
