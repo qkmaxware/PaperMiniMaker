@@ -19,6 +19,7 @@ body {
 
 header {
     background-color: #2E294E;
+    z-index: 10;
 }
 
 footer {
