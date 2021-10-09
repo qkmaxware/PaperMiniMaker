@@ -5,12 +5,12 @@ if (Terrain.Kind == TerrainKind.Wall) {
     <div class="cut-top cut-left cut-right" style="width: 100%; height: 0.5in;"></div>
     <div class="cut-left cut-right fold-top fold-bottom" style="height: @(Terrain.Height)in;">
         <div class="fill yflip">
-            <img class="fill pixelart" src="@Terrain.Art.Url">
+            <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
         </div>
     </div>
     <div class="cut-left cut-right fold-top fold-bottom" style="height: @(Terrain.Height)in;">
         <div class="fill">
-            <img class="fill pixelart" src="@Terrain.Art.Url">
+            <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
         </div>
     </div>
     <div class="cut-bottom cut-left cut-right" style="width: 100%; height: 0.5in;"></div>
@@ -19,7 +19,7 @@ if (Terrain.Kind == TerrainKind.Wall) {
 <div class="solid" style="width: @(Terrain.Length)in;">
     <div class="cut-left cut-right cut-top fold-bottom" style="height: @(Terrain.Height)in;">
         <div class="fill">
-            <img class="fill pixelart" src="@Terrain.Art.Url">
+            <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
         </div>
     </div>
 
@@ -46,7 +46,7 @@ if (Terrain.Kind == TerrainKind.Wall) {
 
     <div class="cut-left cut-right fold-top cut-bottom" style="height: @(Terrain.Height)in;">
         <div class="fill yflip">
-            <img class="fill pixelart" src="@Terrain.Art.Url">
+            <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
         </div>
     </div>
 </div>
@@ -61,7 +61,7 @@ if (Terrain.Kind == TerrainKind.Wall) {
         <div class="solid fold-left fold-right cut-top fold-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
             @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
             <div class="fill">
-                <img class="fill pixelart" src="@Terrain.Art.Url">
+                <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
             </div>
             }
         </div>
@@ -71,19 +71,19 @@ if (Terrain.Kind == TerrainKind.Wall) {
         <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Length)in;">
             @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
             <div class="fill">
-                <img class="fill pixelart" src="@Terrain.Art.Url">
+                <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
             </div>
             }
         </div>
         <div class="solid fold-left fold-right fold-top fold-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Length)in;">
             <div class="fill">
-                <img class="fill pixelart" src="@Terrain.Art.Url">
+                <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
             </div>
         </div>
         <div class="solid cut-right cut-top fold-left cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Length)in;">
             @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
             <div class="fill">
-                <img class="fill pixelart" src="@Terrain.Art.Url">
+                <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
             </div>
             }
         </div>
@@ -93,7 +93,7 @@ if (Terrain.Kind == TerrainKind.Wall) {
         <div class="solid fold-left fold-right fold-top cut-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
             @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
             <div class="fill">
-                <img class="fill pixelart" src="@Terrain.Art.Url">
+                <img class="fill pixelart" src="@Terrain.Art.Url" style="object-fit: fill;">
             </div>
             }
         </div>
