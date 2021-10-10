@@ -87,3 +87,31 @@ footer {
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
+
+
+.center-image-rotate90 {
+    position: relative;
+}
+.center-image-rotate90 img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+.center-image-rotate-90 {
+    position: relative;
+}
+.center-image-rotate-90 img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
