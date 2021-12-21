@@ -22,17 +22,31 @@
             </div>
             <label>Size (tiles)</label>
             <div class="w3-row">
-                <div class="w3-col s2 w3-right-align" style="padding-top: 10px;">
-                    <label>Length</label>
+                <div class="w3-row w3-col s6">
+                    <div class="w3-row">
+                        <div class="w3-col s4 w3-right-align" style="padding-top: 10px;">
+                            <label>Length</label>
+                        </div>
+                        <div class="w3-col s6">
+                            <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Length style="background-color:inherit; color:inherit;">
+                        </div>
+                    </div>
+                    <div class="w3-row">
+                        <div class="w3-col s4 w3-right-align" style="padding-top: 10px;">
+                            <label>Depth</label>
+                        </div>
+                        <div class="w3-col s6">
+                            <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Depth style="background-color:inherit; color:inherit;">
+                        </div>
+                    </div>
                 </div>
-                <div class="w3-col s4">
-                    <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Length style="background-color:inherit; color:inherit;">
-                </div>
-                <div class="w3-col s2 w3-right-align" style="padding-top: 10px;">
-                    <label>Height</label>
-                </div>
-                <div class="w3-col s4">
-                    <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Height style="background-color:inherit; color:inherit;">
+                <div class="w3-row w3-col s6">
+                    <div class="w3-col s2 w3-right-align" style="padding-top: 10px;">
+                        <label>Height</label>
+                    </div>
+                    <div class="w3-col s4">
+                        <input type=number class="w3-input w3-margin-bottom" @bind=@mini.Height style="background-color:inherit; color:inherit;">
+                    </div>
                 </div>
             </div>
             <label>Replicas</label>

@@ -56,11 +56,12 @@
     private void createMini() {
          var mini = new Terrain {
             Name = "New Wall " + (minis.Count + 1),
-            Kind = TerrainKind.Wall,
+            Kind = TerrainKind.Freestanding,
             Art = new TerrainArt {
                 Url = string.Empty
             },
             Length = 3,
+            Depth = 3,
             Height = 0.5f,
             Replicas = 1,
         };
