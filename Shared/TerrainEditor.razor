@@ -67,12 +67,25 @@
                         <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.Art.Url = url; StateHasChanged(); })></FilePicker>
                     } else {
                         if (mini.Kind.UsesSupportWalls()) {
-                            <label>URL</label>
-                            <input class="w3-input" @bind=@mini.SupportArt.Url style="background-color:inherit; color:inherit;">
-                            <div class="w3-center w3-padding">
-                                OR
+                            <label><b>Front/Back Art</b></label>
+                            <div class="w3-margin-left w3-margin-bottom">
+                                <label>URL</label>
+                                <input class="w3-input" @bind=@mini.FrontBackSupportArt.Url style="background-color:inherit; color:inherit;">
+                                <div class="w3-center w3-padding">
+                                    OR
+                                </div>
+                                <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.FrontBackSupportArt.Url = url; StateHasChanged(); })></FilePicker>
                             </div>
-                            <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.SupportArt.Url = url; StateHasChanged(); })></FilePicker>
+
+                            <label><b>Left/Right Art</b></label>
+                                <div class="w3-margin-left">
+                                <label>URL</label>
+                                <input class="w3-input" @bind=@mini.LeftRightSupportArt.Url style="background-color:inherit; color:inherit;">
+                                <div class="w3-center w3-padding">
+                                    OR
+                                </div>
+                                <FilePicker Accept="image/*" AsDataUrl=true OnFileLoad=@((url) => { mini.LeftRightSupportArt.Url = url; StateHasChanged(); })></FilePicker>
+                            </div>
                         } else {
                             <p>
                                 This kind of terrain does not have support walls
@@ -103,8 +116,10 @@
             if (value == false)
                 _secondArtTab = false;
             else if (mini != null) {
-                if (mini.SupportArt == null)
-                    mini.SupportArt = new TerrainArt();
+                if (mini.FrontBackSupportArt == null)
+                    mini.FrontBackSupportArt = new TerrainArt();
+                if (mini.LeftRightSupportArt == null)
+                    mini.LeftRightSupportArt = new TerrainArt();
                 _secondArtTab = value;
             }
         }

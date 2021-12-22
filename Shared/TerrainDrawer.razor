@@ -59,9 +59,9 @@ if (Terrain.Kind == TerrainKind.Freestanding) {
     <div style="display: flex;">
         <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Height)in;"></div>
         <div class="solid fold-left fold-right cut-top fold-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
-            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            @if (Terrain.FrontBackSupportArt != null && !string.IsNullOrEmpty(Terrain.FrontBackSupportArt.Url)) {
             <div class="fill">
-                <img class="fill pixelart yflip" src="@Terrain.SupportArt.Url" style="object-fit: fill;">
+                <img class="fill pixelart yflip" src="@Terrain.FrontBackSupportArt.Url" style="object-fit: fill;">
             </div>
             }
         </div>
@@ -69,9 +69,9 @@ if (Terrain.Kind == TerrainKind.Freestanding) {
     </div>
     <div style="display: flex;">
         <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Depth)in;">
-            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            @if (Terrain.LeftRightSupportArt != null && !string.IsNullOrEmpty(Terrain.LeftRightSupportArt.Url)) {
             <div class="fill center-image-rotate90">
-                <img class="pixelart" src="@Terrain.SupportArt.Url" style="object-fit: fill; width: @(Terrain.Length)in; height: @(Terrain.Depth)in;">
+                <img class="pixelart" src="@Terrain.LeftRightSupportArt.Url" style="object-fit: fill; width: @(Terrain.Length)in; height: @(Terrain.Depth)in;">
             </div>
             }
         </div>
@@ -81,9 +81,9 @@ if (Terrain.Kind == TerrainKind.Freestanding) {
             </div>
         </div>
         <div class="solid cut-right cut-top fold-left cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Depth)in;">
-            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            @if (Terrain.LeftRightSupportArt != null && !string.IsNullOrEmpty(Terrain.LeftRightSupportArt.Url)) {
             <div class="fill center-image-rotate-90">
-                <img class="pixelart" src="@Terrain.SupportArt.Url" style="object-fit: fill; width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
+                <img class="pixelart" src="@Terrain.LeftRightSupportArt.Url" style="object-fit: fill; width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
             </div>
             }
         </div>
@@ -91,9 +91,9 @@ if (Terrain.Kind == TerrainKind.Freestanding) {
     <div style="display: flex;">
         <div class="solid cut-left cut-top fold-right cut-bottom" style="width: @(Terrain.Height)in; height: @(Terrain.Height)in;"></div>
         <div class="solid fold-left fold-right fold-top cut-bottom" style="width: @(Terrain.Length)in; height: @(Terrain.Height)in;">
-            @if (Terrain.SupportArt != null && !string.IsNullOrEmpty(Terrain.SupportArt.Url)) {
+            @if (Terrain.FrontBackSupportArt != null && !string.IsNullOrEmpty(Terrain.FrontBackSupportArt.Url)) {
             <div class="fill">
-                <img class="fill pixelart" src="@Terrain.SupportArt.Url" style="object-fit: fill;">
+                <img class="fill pixelart" src="@Terrain.FrontBackSupportArt.Url" style="object-fit: fill;">
             </div>
             }
         </div>

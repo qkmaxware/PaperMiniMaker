@@ -37,7 +37,8 @@ public class Terrain {
     public string Name {get; set;}
     public TerrainKind Kind {get; set;}
     public TerrainArt Art {get; set;}
-    public TerrainArt SupportArt {get; set;}
+    public TerrainArt FrontBackSupportArt {get; set;}
+    public TerrainArt LeftRightSupportArt {get; set;}
     public int Replicas {get; set;}
 
     public float Length {get; set;}
