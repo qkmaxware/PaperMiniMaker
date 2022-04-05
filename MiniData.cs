@@ -16,8 +16,8 @@ public static class MiniSizeMethods {
     public static string Description(this MiniSize size) {
         return size switch {
             MiniSize.Tiny => "Tiny: 12mm x 14mm (0.5\" x 0.6\")",
-            MiniSize.Small => "Small: 25mm x 20mm (1\" x 0.8\")",
-            MiniSize.Medium => "Medium: 25mm x 28mm  (1\" x 1.1\")",
+            MiniSize.Small => "Small: 25mm x 25mm (1\" x 1\")",
+            MiniSize.Medium => "Medium: 25mm x 30mm  (1\" x 1.18\")",
             MiniSize.Large => "Large: 50mm x 60mm (2\" x 2.4\")",
             MiniSize.Huge => "Huge: 76mm x 96mm (3\" x 3.8\")",
             MiniSize.Gargantuan => "Gargantuan: 102mm x 116mm (4\" x 4.6\")",
