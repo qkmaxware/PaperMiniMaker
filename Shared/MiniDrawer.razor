@@ -1,5 +1,5 @@
 @if (Mini.Size != MiniSize.Huge && Mini.Size != MiniSize.Gargantuan) {
-<div class="mini @Mini.Size.CssClass() w3-margin">
+<div class="mini w3-margin" style="width: @(ScaleFactor * Mini.Size.BaseSizeInches())in;">
     @if (WithBase) {
     <div class="foot back"></div>
     }
@@ -11,44 +11,18 @@
     </div>
     @if (WithBase) {
     <div class="foot front">
-        <span>&#9660;</span>
+        <text>&#9660;</text>
     </div>
     <div class="base">
-        <span>@Mini.Name</span>
+        <text>@Mini.Name</text>
     </div>
     }
-</div>
-} else {
-<div class="mini @Mini.Size.CssClass() w3-margin">
-    <div class="container">
-    <div style="display: inline-block">
-        <div class="art back" style="border-top: 1px solid black !important; border-right: 1px dotted grey !important">
-            <img class="xflip pixelart" src="@Mini.GetReverseArt().Url"> 
-        </div>
-        @if (WithBase) {
-        <div class="foot back"  style="border-botom: 1px solid black !important; border-top: 1px dotted grey !important">
-
-        </div>
-        }
-    </div>
-    <div style="display: inline-block">
-        <div class="art front"  style="border-top: 1px solid black !important; border-left: 1px dotted grey !important">
-            <img class="pixelart" src="@Mini.FrontArt.Url"> 
-        </div>
-        @if (WithBase) {
-        <div class="foot front">
-            <span>&#9660;</span>
-        </div>
-        <div class="base">
-            <span>@Mini.Name</span>
-        </div>
-        }
-    </div>
-    </div>
 </div>
 }
 
 @code {
     [Parameter] public Mini Mini {get; set;}
     [Parameter] public bool WithBase {get; set;} = true;
+
+    public float ScaleFactor => Mini == null ? 1 : Mini.Scale;
 }

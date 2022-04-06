@@ -16,6 +16,7 @@
                 </div>
                 <div class="w3-right-align">
                     <button class="w3-button" @onclick=@(() => editMini(mini))>Edit</button>
+                    <button class="w3-button" @onclick=@(() => cloneMini(mini))>Clone</button>
                     <button class="w3-button w3-text-red" @onclick=@(() => deleteMini(mini))>Delete</button>
                 </div>
             </div>
@@ -68,9 +69,17 @@
         minis.Add(mini);
         editor?.Edit(mini);
     }
-    
+
+
     private void editMini(Mini mini) {
         editor?.Edit(mini);
+    }
+
+    private void cloneMini(Mini mini) {
+        var duplicate = mini.Clone();
+        if (duplicate.Name != null)
+            duplicate.Name += "(Clone)";
+        minis.Add(duplicate);
     }
 
     private void deleteMini(Mini mini) {

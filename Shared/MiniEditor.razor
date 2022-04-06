@@ -9,12 +9,21 @@
             <input class="w3-input w3-margin-bottom" @bind=@mini.Name style="background-color:inherit; color:inherit;">
             <label>Replicas</label>
             <input type="number" class="w3-input w3-margin-bottom" @bind=@mini.Replicas style="background-color:inherit; color:inherit;">
-            <label>Size</label>
-            <select @bind=@mini.Size class="w3-input w3-margin-bottom" style="background-color:inherit; color:inherit;">
-                @foreach (MiniSize size in Enum.GetValues(typeof(MiniSize))){
-                    <option value="@size">@size.Description()</option>
-                }
-            </select>
+            <div class="w3-row">
+                <div class="w3-half" style="padding-left: 8px;">
+                    <label>Size</label>
+                        <select @bind=@mini.Size class="w3-input w3-margin-bottom" style="background-color:inherit; color:inherit;">
+                            @foreach (MiniSize size in Enum.GetValues(typeof(MiniSize))){
+                                <option value="@size" style="background-color: white; color: black;">@size.Description()</option>
+                            }
+                        </select>
+                </div>
+                <div class="w3-half" style="padding-right: 8px;">
+                    <label>Scale Multiplier</label>
+                    <input type="number" class="w3-input w3-margin-bottom" @bind=mini.Scale style="background-color:inherit; color:inherit;">
+                </div>
+            </div>
+            
             <div class="w3-margin-top w3-margin-bottom">
                 <div class="w3-row">
                     <div class="w3-button @(frontArtTab ? "tab-active" : "tab-inactive")" @onclick=@(() => frontArtTab = true)>Front Art</div>

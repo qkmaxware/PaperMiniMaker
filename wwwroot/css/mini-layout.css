@@ -1,0 +1,45 @@
+.mini {
+    padding: 2px;
+}
+
+.mini .base {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+
+.mini .base text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.mini .art {
+    position: relative;
+    width: 100%;
+    /*padding-top: 118.11%;*/ /* Enforce ratio of 25mm x 30mm ?*/ 
+}
+
+.mini .foot {
+    width: 100%;
+    padding-top: 50%;
+    position: relative;
+}
+
+.mini .foot text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}

@@ -15,13 +15,24 @@ public enum MiniSize {
 public static class MiniSizeMethods {
     public static string Description(this MiniSize size) {
         return size switch {
-            MiniSize.Tiny => "Tiny: 12mm x 14mm (0.5\" x 0.6\")",
-            MiniSize.Small => "Small: 25mm x 25mm (1\" x 1\")",
-            MiniSize.Medium => "Medium: 25mm x 30mm  (1\" x 1.18\")",
-            MiniSize.Large => "Large: 50mm x 60mm (2\" x 2.4\")",
-            MiniSize.Huge => "Huge: 76mm x 96mm (3\" x 3.8\")",
-            MiniSize.Gargantuan => "Gargantuan: 102mm x 116mm (4\" x 4.6\")",
+            MiniSize.Tiny => "Tiny: 12mm (0.5\")",
+            MiniSize.Small => "Small: 25mm (1\")",
+            MiniSize.Medium => "Medium: 25mm (1\")",
+            MiniSize.Large => "Large: 50mm (2\")",
+            MiniSize.Huge => "Huge: 76mm (3\")",
+            MiniSize.Gargantuan => "Gargantuan: 102mm (4\")",
             _ => size.ToString()
+        };
+    }
+    public static double BaseSizeInches (this MiniSize size) {
+        return size switch {
+            MiniSize.Tiny => 0.5,
+            MiniSize.Small => 1,
+            MiniSize.Medium => 1,
+            MiniSize.Large => 2,
+            MiniSize.Huge => 3,
+            MiniSize.Gargantuan => 4,
+            _ => 1
         };
     }
     public static string CssClass (this MiniSize size) {
@@ -42,11 +53,27 @@ public class Mini {
     public MiniSize Size {get; set;}
     public MiniArt FrontArt {get; set;}
     public MiniArt ReverseArt {get; set;}
+    public float Scale {get; set;} = 1;
 
     private int _replicas;
     public int Replicas {
         get => _replicas;
         set => _replicas = Math.Max(1, value);
+    }
+
+    public Mini Clone() {
+        return new Mini{
+            Name = this.Name,
+            Size = this.Size,
+            FrontArt = this.FrontArt == null ? null : new MiniArt {
+                Url = this.FrontArt.Url
+            },
+            ReverseArt = this.ReverseArt == null ? null : new MiniArt {
+                Url = this.ReverseArt.Url
+            },
+            Scale = this.Scale,
+            Replicas = this.Replicas
+        };
     }
 
     public MiniArt GetReverseArt() => ReverseArt != null && !string.IsNullOrEmpty(ReverseArt.Url) ? ReverseArt : FrontArt;
