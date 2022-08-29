@@ -1,0 +1,75 @@
+@inject IJSRuntime js;
+
+<div class="w3-modal @showModalCss">
+    <div class="w3-modal-content w3-round-xlarge">
+        <header class="w3-container w3-center w3-xlarge">
+            Bulk Add Minis
+        </header>
+        <div class="w3-padding bg">
+            <p>Select any number of image files below to create miniatures for.</p>
+            <input @ref=files type="file" accept="image/*" class="w3-input" @onchange=readFileStrings multiple>
+        </div>
+        <footer class="w3-container w3-row w3-padding">
+            <div class="w3-col s6">
+                <button class="w3-button w3-red" @onclick=@(() => Show(false))>Cancel</button>
+            </div>
+            <div class="w3-col s6" style="text-align: right;">
+                @if (dataUrls != null && dataUrls.dataUrls != null && dataUrls.dataUrls.Length > 0) {
+                    <button class="w3-button w3-green" @onclick=save>Add @(dataUrls.dataUrls.Length) Minis</button>
+                }
+            </div>
+            
+        </footer>
+    </div>
+</div>
+
+@code {   
+
+    private bool isOpen = false;
+    private string showModalCss => isOpen ? "w3-show" : "w3-hide";
+
+    private ElementReference files;
+
+    private BulkResults dataUrls;
+
+    [Parameter] public Action<IEnumerable<Mini>> OnChange {get; set;}
+
+    private class BulkResults {
+        public string[] dataUrls {get; set;}
+        public string[] names {get; set;}
+    }
+
+    private async Task readFileStrings() {
+        dataUrls = await js.InvokeAsync<BulkResults>("BlazorHandleFileSelectMultipleDataUrl", files);
+    }
+
+    public void Show(bool isOpen) {
+        this.isOpen = isOpen;
+        StateHasChanged();
+    }
+
+    private void save() {
+        if (OnChange == null)
+            return;
+
+        if (dataUrls == null || dataUrls.dataUrls == null) {
+            OnChange(new Mini[0]);
+            Show(false);
+            return;
+        }
+
+        var minis = new Mini[this.dataUrls.dataUrls.Length];
+        for (var i = 0; i < minis.Length; i++) {
+            minis[i] = new Mini {
+                Name = i >= 0 && dataUrls.names != null && i < dataUrls.names.Length ? dataUrls.names[i] : "Bulk Mini",
+                Size = MiniSize.Medium,
+                FrontArt = new MiniArt {
+                    Url = dataUrls.dataUrls[i]
+                },
+                Replicas = 1,
+            };
+        }
+        OnChange(minis);
+        Show(false);
+    }
+}

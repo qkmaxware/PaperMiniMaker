@@ -1,0 +1,74 @@
+@page "/card"
+
+<div class="w3-center no-print">
+    <nav class="w3-small" style="display: inline-block; border-radius: 0 0 8px 8px; margin-left: auto; margin-right: auto;">
+        <button class="w3-button w3-round-large">
+            <img src="assets/printer.svg" style="width: 32px; height: 32px;" onclick="window.print()">
+            <p>
+                print <select @bind="size" onclick="false" @onclick:stopPropagation>@foreach(var size in Enum.GetValues<cardSizes>()){ <option>@size</option> }</select>
+            </p>
+        </button>
+    </nav>
+</div>
+
+<div class="w3-row no-print">
+    @foreach (var card in cards) {
+        <div class="w3-col l2 m4 s12 w3-padding">
+            <div class="w3-border w3-round-xlarge">    
+                <div class="w3-center" style="height: 240px;">
+                    <img src="@card.FrontUrl" class="pixelart"/>
+                </div>
+                <div class="w3-right-align">
+                    <button class="w3-button" @onclick=@(() => editCard(card))>Edit</button>
+                    <button class="w3-button w3-text-red" @onclick=@(() => deleteCard(card))>Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="w3-col l2 m4 s12 w3-padding">
+        <div class="w3-button w3-round-xlarge w3-display-container" @onclick=createCard style="border: 1px dashed white; width:100%; height: 320.8px">    
+            <div class="w3-display-middle w3-center w3-xlarge">
+                New<br>
+                +
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w3-row print">
+    @foreach (var card in cards) {
+        for (var i = 0; i < card.Replicas; i++) {
+            <img src="@card.FrontUrl" class="card fold-right @size">
+            <img src="@card.BackUrl" class="card fold-left @size">
+        }
+    }
+    <Instructions></Instructions>
+</div>
+
+<CardEditor @ref=editor OnChange=StateHasChanged></CardEditor>
+<DeleteConfirmation @ref=delete></DeleteConfirmation>
+
+@code {
+    static List<PlayingCard> cards = new List<PlayingCard>();
+
+    enum cardSizes {
+        poker, bridge, tarot, square, game, business
+    }
+    private static cardSizes size;
+
+    private DeleteConfirmation delete;
+    private CardEditor editor;
+    private void createCard() {
+        var card = new PlayingCard ();
+        cards.Add(card);
+        editor?.Edit(card);
+    }
+
+    private void editCard(PlayingCard card) {
+        editor?.Edit(card);
+    }
+
+    private void deleteCard(PlayingCard card) {
+        this.delete.AskForConfirmation(() => { cards.Remove(card); StateHasChanged(); });
+    }
+}

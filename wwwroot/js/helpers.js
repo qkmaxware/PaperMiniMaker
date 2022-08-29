@@ -89,6 +89,31 @@ async function BlazorHandleFileSelectDataUrl(input) {
   }
 }
 
+function removeExtension(filename) {
+  return filename.substring(0, filename.lastIndexOf('.')) || filename;
+}
+
+async function BlazorHandleFileSelectMultipleDataUrl(input) {
+  var files = input.files;
+  if (files.length > 0) {
+    var data = {
+      dataUrls: [],
+      names: [],
+    };
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      data.dataUrls.push(await BlazorReadFileAsDataUrl(file));
+      data.names.push(removeExtension(file.name));
+    }
+    return data;
+  } else {
+    return {
+      dataUrls: [],
+      names: [],
+    };
+  }
+}
+
 async function BlazorReadFileAsDataUrl(file) {
   return await new Promise((resolve, reject) => {
     var reader = new FileReader();

@@ -1,0 +1,37 @@
+.card {
+    width: 2.5in;
+    height: 3.5in;
+    border: 1px solid black;
+    display: inline-block;
+    object-fit: fill;
+}
+
+.card.poker {
+    width: 2.5in !important;
+    height: 3.5in !important;
+}
+
+.card.bridge {
+    width: 2.25in !important;
+    height: 3.5in !important;
+}
+
+.card.tarot {
+    width: 3.5in !important;
+    height: 5.75in !important;
+}
+
+.card.square {
+    width: 3.5in !important;
+    height: 3.5in !important;
+}
+
+.card.game {
+    width: 2.2in !important;
+    height: 3.43in !important;
+}
+
+.card.business {
+    width: 2in !important;
+    height: 3.5in !important;
+}

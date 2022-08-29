@@ -1,12 +1,44 @@
 ﻿@page "/mini"
 
-<div class="w3-center w3-padding no-print">
-    <a href="#" onclick="window.print()">print</a> this page to get your minis <select @bind="baseSelection"><option value="Y">with a base</option><option value="N">without base</option></select>.
+<div class="w3-center no-print">
+    <nav class="w3-small" style="display: inline-block; border-radius: 0 0 8px 8px; margin-left: auto; margin-right: auto;">
+        <button class="w3-button w3-round-large" @onclick=@(() => scaleModal?.Show(true))>
+            <img src="assets/scale.svg" style="width: 32px; height: 32px;">
+            <p>scale</p>
+        </button>
+        <button class="w3-button w3-round-large">
+            <img src="assets/printer.svg" style="width: 32px; height: 32px;" onclick="window.print()">
+            <p>
+                print <select @bind="baseSelection" onclick="false" @onclick:stopPropagation><option value="Y">with base</option><option value="N">without base</option></select>
+            </p>
+        </button>
+    </nav>
 </div>
+
+<PopupModal @ref=scaleModal Title="Apply Scale" OnSave=applyScale>
+    <label>Scale Multiplier</label>
+    <input class="w3-input w3-margin-bottom" @bind=scaleMultiplier style="background-color:inherit; color:inherit;">
+    <label>Reset Scale</label>
+    <p><button class="w3-button" @onclick=resetScale>Reset</button> all mini's scale to 1</p>
+</PopupModal>
+@code {
+    private PopupModal scaleModal;
+    private float scaleMultiplier = 1;
+    private void applyScale() {
+        foreach (var mini in minis) {
+            mini.Scale *= scaleMultiplier;
+        }
+    }
+    private void resetScale() {
+        foreach (var mini in minis) {
+            mini.Scale = 1;
+        }
+    }
+}
 
 <div class="w3-row no-print">
     @foreach (var mini in minis) {
-        <div class="w3-col l2 m3 s12 w3-padding">
+        <div class="w3-col l2 m4 s12 w3-padding">
             <div class="w3-border w3-round-xlarge">    
                 <div class="w3-center w3-padding w3-large">
                     @mini.Name @if(mini.Replicas > 1) { <small> (x@(mini.Replicas))</small> }
@@ -22,11 +54,17 @@
             </div>
         </div>
     }
-    <div class="w3-col l2 m3 s12 w3-padding">
-        <div class="w3-button w3-round-xlarge w3-display-container" @onclick=createMini style="border: 1px dashed white; width:100%; height: 320.8px">    
-            <div class="w3-display-middle w3-center w3-xlarge">
-                New<br>
-                +
+    <div class="w3-col l2 m4 s12 w3-padding">
+        <div class="w3-display-container w3-round-xlarge" style="border: 1px dashed white; width:100%; height: 320.8px">
+            <div class="w3-button w3-round-xlarge" style="display: flex; justify-content: center; align-content: center; flex-direction: column; height: 100%; width: 100%;">
+                <p>
+                    New<br>+
+                </p>
+            </div>
+            <div class="w3-display-bottommiddle">
+                <p class="w3-small">
+                    or <button @onclick=@(() => bulk?.Show(true)) @onclick:stopPropagation style="cursor: pointer">bulk add</button> multiple minis
+                </p>
             </div>
         </div>
     </div>
@@ -40,20 +78,22 @@
     <Instructions></Instructions>
 </div>
 
-<div class="w3-center w3-padding no-print" style="position: fixed; bottom: 0; left: 0; right: 0;">
-    Confused? Read the complete instructions <a href="mini/help" target="_blank">here</a>.
+<div class="w3-center w3-padding no-print" style="position: fixed; bottom: 0; left: 0; right: 0; pointer-events: none;">
+    Confused? Read the complete instructions <a href="mini/help" target="_blank" style="pointer-events: auto">here</a>.
 </div>
 
 <MiniEditor @ref=editor OnChange=StateHasChanged></MiniEditor>
 <DeleteConfirmation @ref=delete></DeleteConfirmation>
+<BulkLoader @ref=bulk OnChange=bulkAdd></BulkLoader>
 
 @code {
 
     private MiniEditor editor;
     private DeleteConfirmation delete;
+    private BulkLoader bulk;
 
-    private string baseSelection = "Y";
-    private bool printWithBase => baseSelection == "Y";
+    private static string baseSelection = "Y";
+    private static bool printWithBase => baseSelection == "Y";
 
     public static List<Mini> minis = new List<Mini> {};
 
@@ -70,6 +110,10 @@
         editor?.Edit(mini);
     }
 
+    private void bulkAdd(IEnumerable<Mini> toAdd) {
+        minis.AddRange(toAdd);
+        StateHasChanged();
+    }
 
     private void editMini(Mini mini) {
         editor?.Edit(mini);
