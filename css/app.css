@@ -22,6 +22,11 @@ header {
     z-index: 10;
 }
 
+nav {
+    background-color: #1f1c35;
+    padding: 4px;
+}
+
 footer {
     background-color: #2E294E;
 }
