@@ -28,11 +28,14 @@
         foreach (var mini in minis) {
             mini.Scale *= scaleMultiplier;
         }
+        StateHasChanged();
     }
     private void resetScale() {
+        scaleMultiplier = 1;
         foreach (var mini in minis) {
             mini.Scale = 1;
         }
+        StateHasChanged();
     }
 }
 
@@ -56,7 +59,7 @@
     }
     <div class="w3-col l2 m4 s12 w3-padding">
         <div class="w3-display-container w3-round-xlarge" style="border: 1px dashed white; width:100%; height: 320.8px">
-            <div class="w3-button w3-round-xlarge" style="display: flex; justify-content: center; align-content: center; flex-direction: column; height: 100%; width: 100%;">
+            <div class="w3-button w3-round-xlarge" @onclick=createMini style="display: flex; justify-content: center; align-content: center; flex-direction: column; height: 100%; width: 100%;">
                 <p>
                     New<br>+
                 </p>
